@@ -1,0 +1,82 @@
+<CalendarioScreen>:
+    Screen:
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: .65,.78
+            height: self.minimum_height
+            pos_hint: {"center_x": .5,"center_y": .5 }
+            padding:"30dp","15dp","30dp","30dp"
+            spacing:"10dp"
+
+            canvas:
+                Color: 
+                    rgba: 1,1,1, .6
+                RoundedRectangle:
+                    pos:self.pos
+                    size:self.size
+                    radius: 20,20,20,20
+            
+            BoxLayout:
+                size_hint_y:.2
+                MDLabel:
+                    text:"AGREGA UN EVENTO"
+                    halign: "center"
+                    bold:True
+
+            GridLayout:
+                cols: 2
+                halign:'center'
+                size_hint_y:.2
+                MDIconButton:
+                    icon:'calendar'
+                    size_hint:(.5,.2)
+                    on_release:root.show_date_picker()
+
+                MDLabel:
+                    text:'Seleccione la Fecha'
+                    size_hint:(.5,.2)
+                    id:fecha
+
+                MDIconButton:
+                    icon:'clock'
+                    size_hint:(.3,.2)
+                    on_release:root.show_time_picker()
+
+                MDLabel:
+                    text:'Seleccione la Hora'
+                    size_hint:(.5,.2)
+                    id:hora
+
+            BoxLayout:
+                halign:'center'
+                size_hint_y: .4
+                orientation:'vertical'
+
+                MDTextField:
+                    id:texto_tarea
+                    hint_text: "Escribe el evento"
+                    pos_hint: {"center_x": .5,"center_y": .5 }
+                    size_hint:(.8,.9)
+                    normal_color: 1,1,1, .5
+                    multiline: True
+                    mode: "rectangle"
+
+                
+            BoxLayout:
+                orientation:'horizontal'
+                size_hint:(1,.1)
+                spacing:'20dp'
+                halign: 'right'
+
+                MDLabel:
+                    text:''
+                MDRaisedButton:
+                    text:'OK'
+                    halign: 'right'
+                    on_release:root.insertar_datos()
+                    
+                MDRaisedButton:
+                    text:'CANCELAR'
+                    text_color: app.theme_cls.primary_color
+                    md_bg_color: 1, 1, 1,.9
+                    halign: 'right'

@@ -1,0 +1,95 @@
+#: include kv/home.kv
+#: include kv/settings.kv
+#: include kv/calendario.kv
+#: include kv/tareas.kv
+
+NavigationLayout:
+    id:nav_layout
+    ScreenManager:
+        Screen:
+            FitImage:
+                source: 'Fondos/fondo7.jpg'
+            BoxLayout:
+                orientation: 'vertical'
+                ScreenManager:
+                    id:screen_manager
+                    HomeScreen:
+                        id:Home
+                        name:"Home"
+                    SettingsScreen:
+                        id:Settings
+                        name:"Settings"
+                    CalendarioScreen:
+                        id:Calendario
+                        name:"Calendario"
+                    TareasScreen:
+                        id:Tareas
+                        name:"Tareas"
+                
+                MDBottomAppBar:
+                    height: "20dp"
+                    MDToolbar:
+                        height:"45dp"
+                        title: app.title
+                        icon: 'microphone'
+                        on_action_button: 
+                            app.activar_microfono()
+                            #screen_manager.current="Tareas"
+                        type: 'bottom'
+                        elevation: 10
+                        left_action_items:[["menu",lambda x: nav_drawer.set_state()]]
+                        mode: "end"
+
+    MDNavigationDrawer: #todo lo que va al lado izquierdo
+        id:nav_drawer
+
+        BoxLayout:
+            orientation:'vertical'
+            padding:'8dp'
+            spacing:'8dp'
+
+            # Image:
+            #     #size_hint: None,None
+            #     size:'100dp','100'
+            #     source:'Fondos/fondo9.jpg'
+        
+            ScrollView:
+                MDList:
+                    OneLineIconListItem:
+                        text:'Inicio'
+                        on_release:
+                            screen_manager.current="Home" #nombre q le diste a la pantalla
+                            nav_drawer.set_state()
+                        IconLeftWidget:
+                            icon:"view-dashboard"
+                    
+                    OneLineIconListItem:
+                        text:'Agenda'
+                        on_release:
+                            screen_manager.current="Calendario"
+                            nav_drawer.set_state()
+                        IconLeftWidget:
+                            icon:"calendar"
+                    
+                    OneLineIconListItem:
+                        text:'Ajustes'
+                        on_release:
+                            screen_manager.current="Settings"
+                            nav_drawer.set_state()
+                        IconLeftWidget:
+                            icon:"settings"
+                    
+                    OneLineIconListItem:
+                        text:'Tareas'
+                        on_release:
+                            screen_manager.current="Tareas"
+                            nav_drawer.set_state()
+                        IconLeftWidget:
+                            icon:"book"
+                    
+                    OneLineIconListItem:
+                        text:'Salir'
+                        on_release:app.cerrar_ventana()
+
+                        IconLeftWidget:
+                            icon:"home-variant"
